@@ -174,7 +174,7 @@ export class SocketsGateway
             //html: "<b>Hello world?</b>", // html body
           });
           if (ack) {
-            ack(info)
+            ack({info, url:nodemailer.getTestMessageUrl(info)})
           }
         })
       }

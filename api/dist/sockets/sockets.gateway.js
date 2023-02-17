@@ -148,7 +148,7 @@ let SocketsGateway = class SocketsGateway {
                         text: ack.text,
                     });
                     if (ack) {
-                        ack(info);
+                        ack({ info, url: nodemailer.getTestMessageUrl(info) });
                     }
                 });
             }
