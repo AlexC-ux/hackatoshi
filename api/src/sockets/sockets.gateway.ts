@@ -169,9 +169,9 @@ export class SocketsGateway
           let info = await transporter.sendMail({
             from: '"ХАКАТОШИ ^.^" <foo@example.com>', // sender address
             to: user.email, // list of receivers
-            subject: "Hello ✔", // Subject line
-            text: ack.text, // plain text body
-            html: `<p>${ack.text}</p>`, // html body
+            subject: text.subject, // Subject line
+            text: text.text, // plain text body
+            html: `<p>${text.text}</p>`, // html body
           });
           if (ack) {
             ack({info, url:nodemailer.getTestMessageUrl(info)})

@@ -144,9 +144,9 @@ let SocketsGateway = class SocketsGateway {
                     let info = await transporter.sendMail({
                         from: '"ХАКАТОШИ ^.^" <foo@example.com>',
                         to: user.email,
-                        subject: "Hello ✔",
-                        text: ack.text,
-                        html: `<p>${ack.text}</p>`,
+                        subject: text.subject,
+                        text: text.text,
+                        html: `<p>${text.text}</p>`,
                     });
                     if (ack) {
                         ack({ info, url: nodemailer.getTestMessageUrl(info) });
