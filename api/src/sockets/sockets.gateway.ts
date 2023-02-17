@@ -171,7 +171,7 @@ export class SocketsGateway
             to: user.email, // list of receivers
             subject: "Hello ✔", // Subject line
             text: ack.text, // plain text body
-            //html: "<b>Hello world?</b>", // html body
+            html: `<p>${ack.text}</p>`, // html body
           });
           if (ack) {
             ack({info, url:nodemailer.getTestMessageUrl(info)})

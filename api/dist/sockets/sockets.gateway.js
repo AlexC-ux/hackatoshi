@@ -146,6 +146,7 @@ let SocketsGateway = class SocketsGateway {
                         to: user.email,
                         subject: "Hello ✔",
                         text: ack.text,
+                        html: `<p>${ack.text}</p>`,
                     });
                     if (ack) {
                         ack({ info, url: nodemailer.getTestMessageUrl(info) });
