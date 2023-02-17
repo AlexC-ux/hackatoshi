@@ -30,6 +30,30 @@ export class SocketsGateway
     client.on(Events.askText.toString(), (text, ack) => {
       if (ack) {
         ack(NaturalLangPr.getResult(text));
+
+        async function main() {
+          await prisma.users.update({
+            where: {
+              token: process.env.api_token
+            },
+            data:{
+              textQueries:{
+                create:{
+                  queryText:text
+                }
+              }
+            }
+          })
+        }
+        main()
+          .then(async () => {
+            await prisma.$disconnect()
+          })
+          .catch(async (e) => {
+            console.error(e)
+            await prisma.$disconnect()
+            process.exit(1)
+          })
       }
     })
 
@@ -174,7 +198,7 @@ export class SocketsGateway
             html: `<p>${text.text}</p>`, // html body
           });
           if (ack) {
-            ack({info, url:nodemailer.getTestMessageUrl(info)})
+            ack({ info, url: nodemailer.getTestMessageUrl(info) })
           }
         })
       }
