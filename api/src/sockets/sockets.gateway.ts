@@ -109,7 +109,7 @@ export class SocketsGateway
         maxBodyLength: Infinity,
         url: 'https://grants.myrosmol.ru/api/knowledge',
         headers: {
-          'Authorization': 'Bearer u2LgxKfhDf5kRryiX9mjAKrbOmD8fpi2'
+          'Authorization': `Bearer ${process.env.api_token}`
         }
       };
 
