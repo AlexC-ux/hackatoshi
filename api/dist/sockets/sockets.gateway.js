@@ -142,7 +142,7 @@ let SocketsGateway = class SocketsGateway {
                     }
                 }).then(async (user) => {
                     let info = await transporter.sendMail({
-                        from: 'ХАКАТОШИ ^.^',
+                        from: '"ХАКАТОШИ ^.^" <foo@example.com>',
                         to: user.email,
                         subject: "Hello ✔",
                         text: ack.text,

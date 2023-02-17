@@ -167,7 +167,7 @@ export class SocketsGateway
           }
         }).then(async user => {
           let info = await transporter.sendMail({
-            from: 'ХАКАТОШИ ^.^', // sender address
+            from: '"ХАКАТОШИ ^.^" <foo@example.com>', // sender address
             to: user.email, // list of receivers
             subject: "Hello ✔", // Subject line
             text: ack.text, // plain text body
