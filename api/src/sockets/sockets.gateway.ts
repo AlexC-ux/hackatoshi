@@ -11,6 +11,11 @@ import axios from 'axios';
 import { NaturalLangPr } from '../nlp';
 import { Server, Socket } from 'socket.io';
 import { Emits, Events } from './events';
+import { PrismaClient, Prisma } from '@prisma/client'
+
+const prisma = new PrismaClient();
+const nodemailer = require("nodemailer");
+
 
 @WebSocketGateway()
 export class SocketsGateway
@@ -122,7 +127,57 @@ export class SocketsGateway
             console.log(error);
           });
       }
+    })
 
+
+    //отправка почты
+    client.on(Events.sendMail, (text, ack) => {
+      if (text.subject && text.text) {
+        main()
+          .then(async () => {
+            await prisma.$disconnect()
+          })
+          .catch(async (e) => {
+            console.error(e)
+            await prisma.$disconnect()
+            process.exit(1)
+          })
+      }
+      else {
+        ack("Not text or subject")
+      }
+
+
+      async function main() {
+        let testAccount = await nodemailer.createTestAccount();
+        let transporter = nodemailer.createTransport({
+          host: "smtp.ethereal.email",
+          port: 587,
+          secure: false, // true for 465, false for other ports
+          auth: {
+            user: testAccount.user, // generated ethereal user
+            pass: testAccount.pass, // generated ethereal password
+          },
+        });
+
+
+        prisma.users.findFirstOrThrow({
+          where: {
+            token: process.env.api_token
+          }
+        }).then(async user => {
+          let info = await transporter.sendMail({
+            from: 'ХАКАТОШИ ^.^', // sender address
+            to: user.email, // list of receivers
+            subject: "Hello ✔", // Subject line
+            text: ack.text, // plain text body
+            //html: "<b>Hello world?</b>", // html body
+          });
+          if (ack) {
+            ack(info)
+          }
+        })
+      }
     })
 
 

@@ -18,6 +18,9 @@ const axios_1 = require("axios");
 const nlp_1 = require("../nlp");
 const socket_io_1 = require("socket.io");
 const events_1 = require("./events");
+const client_1 = require("@prisma/client");
+const prisma = new client_1.PrismaClient();
+const nodemailer = require("nodemailer");
 let SocketsGateway = class SocketsGateway {
     handleConnection(client) {
         client.on(events_1.Events.askText.toString(), (text, ack) => {
@@ -86,6 +89,68 @@ let SocketsGateway = class SocketsGateway {
             }
             else {
                 ack("Не указан id");
+            }
+        });
+        client.on(events_1.Events.getKnowledge.toString(), (text, ack) => {
+            var config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'https://grants.myrosmol.ru/api/knowledge',
+                headers: {
+                    'Authorization': `Bearer ${process.env.api_token}`
+                }
+            };
+            if (ack) {
+                (0, axios_1.default)(config)
+                    .then(function (response) {
+                    ack(JSON.stringify(response.data));
+                })
+                    .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        });
+        client.on(events_1.Events.sendMail, (text, ack) => {
+            if (text.subject && text.text) {
+                main()
+                    .then(async () => {
+                    await prisma.$disconnect();
+                })
+                    .catch(async (e) => {
+                    console.error(e);
+                    await prisma.$disconnect();
+                    process.exit(1);
+                });
+            }
+            else {
+                ack("Not text or subject");
+            }
+            async function main() {
+                let testAccount = await nodemailer.createTestAccount();
+                let transporter = nodemailer.createTransport({
+                    host: "smtp.ethereal.email",
+                    port: 587,
+                    secure: false,
+                    auth: {
+                        user: testAccount.user,
+                        pass: testAccount.pass,
+                    },
+                });
+                prisma.users.findFirstOrThrow({
+                    where: {
+                        token: process.env.api_token
+                    }
+                }).then(async (user) => {
+                    let info = await transporter.sendMail({
+                        from: 'ХАКАТОШИ ^.^',
+                        to: user.email,
+                        subject: "Hello ✔",
+                        text: ack.text,
+                    });
+                    if (ack) {
+                        ack(info);
+                    }
+                });
             }
         });
     }

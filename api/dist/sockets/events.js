@@ -7,6 +7,8 @@ var Events;
     Events["getMe"] = "getMe";
     Events["getGrants"] = "getGrants";
     Events["getGrantInfo"] = "getGrantInfo";
+    Events["getKnowledge"] = "getKnowledge";
+    Events["sendMail"] = "sendMail";
 })(Events = exports.Events || (exports.Events = {}));
 var Emits;
 (function (Emits) {

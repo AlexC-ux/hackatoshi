@@ -4,6 +4,7 @@ getMe = "getMe", //Получение инфы о юзере
 getGrants = "getGrants", //Получение списка грантов
 getGrantInfo = "getGrantInfo", //Получение сведений о конкретном грантовом проекте
 getKnowledge = "getKnowledge", //Получение базы знаний
+sendMail = "sendMail", //отправка почты
 }
 
 export enum Emits{
