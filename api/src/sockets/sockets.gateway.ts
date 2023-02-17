@@ -25,6 +25,19 @@ export class SocketsGateway
 
   handleConnection(@ConnectedSocket() client: Socket) {
 
+    //Через n сек давит на пузо
+    setTimeout(() => {
+      client.emit(Emits.lowActive.toString(), "У нас подготовлено много интересных грантовых проектов! Желаете ознакомиться?")
+    }, 10000)
+
+    //Через n сек если юзер на странице грантов - давит на пузо
+    client.on(Events.locationChanged.toString(), (location) => {
+      setTimeout(() => {
+        if (location.contains("grants.myrosmol.ru/events")) {
+          client.emit(Emits.grantPage.toString(), "Интересный проект, не так ли? Давайте я помогу Вам с заполнением заявки на участие!")
+        }
+      }, 6000)
+    })
 
     //Ответ на вопрос
     client.on(Events.askText.toString(), (text, ack) => {
@@ -36,10 +49,10 @@ export class SocketsGateway
             where: {
               token: process.env.api_token
             },
-            data:{
-              textQueries:{
-                create:{
-                  queryText:text
+            data: {
+              textQueries: {
+                create: {
+                  queryText: text
                 }
               }
             }
