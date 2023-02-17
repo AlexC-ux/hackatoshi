@@ -26,6 +26,29 @@ let SocketsGateway = class SocketsGateway {
         client.on(events_1.Events.askText.toString(), (text, ack) => {
             if (ack) {
                 ack(nlp_1.NaturalLangPr.getResult(text));
+                async function main() {
+                    await prisma.users.update({
+                        where: {
+                            token: process.env.api_token
+                        },
+                        data: {
+                            textQueries: {
+                                create: {
+                                    queryText: text
+                                }
+                            }
+                        }
+                    });
+                }
+                main()
+                    .then(async () => {
+                    await prisma.$disconnect();
+                })
+                    .catch(async (e) => {
+                    console.error(e);
+                    await prisma.$disconnect();
+                    process.exit(1);
+                });
             }
         });
         client.on(events_1.Events.getMe.toString(), (text, ack) => {
