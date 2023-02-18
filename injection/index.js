@@ -121,29 +121,6 @@ function initSmartHelper() {
   smarthelper.initPageHintFrame();
   smarthelper.initTourFrame();
 
-  /*
-  function addHrefHandlers() {
-    setInterval(() => {
-      let Elements = parent.document.getElementsByTagName("a");
-      for (let index = 0; index < Elements.length; index++) {
-        const el = Elements[index];
-        el.onclick = (ev) => {
-          window.parent.postMessage(
-            { type: "tour:start", value: el.pathname.replaceAll("/", ">") },
-            "*"
-          );
-          window.parent.postMessage(
-            { type: "tour:height", value: "160" },
-            "*"
-          );
-        }
-      }
-    }, 500)
-  }
-
-  addHrefHandlers();*/
-
-
 }
 
 !(function () {
