@@ -1,7 +1,7 @@
 #api
 
 /api/node_modules
-/api/build
+/api/dist
 /api/.env
 
 
