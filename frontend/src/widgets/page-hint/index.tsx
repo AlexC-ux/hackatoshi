@@ -14,6 +14,9 @@ var synth = window.speechSynthesis,
 message.lang = 'ru-RU';
 message.text = '';
 
+socket.on("lowActive",()=>{
+  alert("Возможно, вам будут полезны советы помощника, нажмите 'тур по странице' для подробностей")
+})
 
 export const PageHintWidget: React.FC = () => {
   const r = SpeechToText({
