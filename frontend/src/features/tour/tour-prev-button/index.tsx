@@ -1,5 +1,13 @@
+import { tourModel } from "entities/tour";
+
 import styles from "./styles.module.scss";
 
 export const TourPrevButton = () => {
-  return <button className={styles["tour-prev-button"]}>Назад</button>;
+  const { prevStep } = tourModel.provider.useTour();
+
+  return (
+    <button className={styles["tour-prev-button"]} onClick={() => prevStep()}>
+      Назад
+    </button>
+  );
 };

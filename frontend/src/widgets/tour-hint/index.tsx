@@ -1,11 +1,15 @@
-import { TourHint } from "entities/tour";
+import { TourHint, TourHintArrow, tourModel } from "entities/tour";
 import { TourCloseButton, TourNextButton, TourPrevButton } from "features/tour";
 
 export const TourHintWidget = () => {
+  const { tourStep } = tourModel.provider.useTour();
+
+  if (!tourStep) return null;
+
   return (
     <TourHint
-      title="Заголовок"
-      content="Описание тура хахах хах ах ах ах ах ха"
+      title={tourStep.title}
+      content={tourStep.content}
       closeButton={<TourCloseButton />}
       actions={
         <>
@@ -13,7 +17,7 @@ export const TourHintWidget = () => {
           <TourNextButton />
         </>
       }
-      arrow="left"
+      arrow={tourStep.arrow as TourHintArrow}
     />
   );
 };

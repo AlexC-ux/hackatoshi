@@ -1,5 +1,13 @@
+import { tourModel } from "entities/tour";
+
 import styles from "./styles.module.scss";
 
 export const TourNextButton = () => {
-  return <button className={styles["tour-next-button"]}>Далее</button>;
+  const { nextStep } = tourModel.provider.useTour();
+
+  return (
+    <button className={styles["tour-next-button"]} onClick={() => nextStep()}>
+      Далее
+    </button>
+  );
 };

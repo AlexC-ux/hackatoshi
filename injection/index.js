@@ -22,7 +22,7 @@ function initSmartHelper() {
     var s = smarthelper.rootDocument.createElement("style");
     s.innerHTML = `
     .smarthelper-hint{position: fixed;bottom: 10px;right: 10px;border: none;max-width: 400px;max-height: 0px; height: 100%; width: 100%;}
-    .smarthelper-tour{position: absolute;top: 10px;left: 10px;border: none;max-width: 300px;max-height: 0px; height: 100%; width: 100%;}
+    .smarthelper-tour{position: absolute;top: 10px;left: 10px;border: none;max-width: 300px;max-height: 0px; height: 100%; width: 100%;	transition: top 0.5s ease-out, left 0.5s ease-out, transform 0.5s ease-out;}
     `;
     h.appendChild(s);
   };
@@ -37,10 +37,11 @@ function initSmartHelper() {
 
     smarthelper.rootWindow.addEventListener("message", ({ data }) => {
       console.log(data);
-      if (data && data.type == "hint:height") {
-        const tour =
-          smarthelper.rootDocument.getElementById("smarthelper-hint");
-        if (tour) tour.style.maxHeight = `${data.value}px`;
+      const tour = smarthelper.rootDocument.getElementById("smarthelper-hint");
+      if (data && tour) {
+        if (data.type == "hint:height") {
+          tour.style.maxHeight = `${data.value}px`;
+        }
       }
     });
   };
@@ -48,7 +49,7 @@ function initSmartHelper() {
   smarthelper.initTourFrame = () => {
     var b = smarthelper.rootDocument.getElementsByTagName("body")[0];
     var f = smarthelper.rootDocument.createElement("iframe");
-    f.setAttribute("src", "http://localhost:3000/tour/1");
+    f.setAttribute("src", "");
     f.setAttribute("id", "smarthelper-tour");
     f.setAttribute("class", "smarthelper-tour");
     f.style.display = "none";
@@ -56,10 +57,23 @@ function initSmartHelper() {
 
     smarthelper.rootWindow.addEventListener("message", ({ data }) => {
       console.log(data);
-      if (data && data.type == "tour:height") {
-        const tour =
-          smarthelper.rootDocument.getElementById("smarthelper-tour");
-        if (tour) tour.style.maxHeight = `${data.value}px`;
+      const tour = smarthelper.rootDocument.getElementById("smarthelper-tour");
+      if (data && tour) {
+        if (data.type == "tour:height") {
+          tour.style.maxHeight = `${data.value}px`;
+        } else if (data.type == "tour:start") {
+          f.style.display = "none";
+          f.style.top = "";
+          f.style.left = "";
+          f.style.transform = "";
+          f.setAttribute("src", `http://localhost:3000/tour/${data.value}`);
+        } else if (data.type == "tour:step") {
+          f.style.display = "";
+          smarthelper.attachTourToElement(data.selector, data.position);
+        } else if (data.type == "tour:end") {
+          f.style.display = "none";
+          f.setAttribute("src", "");
+        }
       }
     });
   };

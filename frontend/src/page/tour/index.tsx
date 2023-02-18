@@ -1,22 +1,30 @@
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
 import { TourHintWidget } from "widgets/tour-hint";
+import useElementSize from "shared/hooks/use-element-size";
 
 import styles from "./styles.module.scss";
-import useElementSize from "shared/hooks/use-element-size";
-import { useEffect } from "react";
+import { tourModel } from "entities/tour";
 
 export const TourPage = () => {
   const [ref, { height }] = useElementSize();
+  const { tourId } = useParams();
 
   useEffect(() => {
-    if (window) {
+    if (window && tourId) {
       console.log({ type: "tour:height", value: height });
       window.parent.postMessage({ type: "tour:height", value: height }, "*");
     }
-  }, [height]);
+  }, [height, tourId]);
+
+  if (!tourId) return null;
 
   return (
-    <main ref={ref} className={styles["tour-page"]}>
-      <TourHintWidget />
-    </main>
+    <tourModel.provider.TourProvider tourId={tourId}>
+      <main ref={ref} className={styles["tour-page"]}>
+        <TourHintWidget />
+      </main>
+    </tourModel.provider.TourProvider>
   );
 };
