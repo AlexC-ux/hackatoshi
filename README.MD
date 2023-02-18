@@ -45,7 +45,7 @@
 ```
 Предварительно:
 ставим при необходимости pg db по гайду https://winitpro.ru/index.php/2019/10/25/ustanovka-nastrojka-postgresql-v-windows/
-составляем "connection string" по гайду https://www.connectionstrings.com/postgresql/
+составляем "connection url" по гайду https://www.prisma.io/dataguide/postgresql/short-guides/connection-uris#providing-the-database-name
 получаем токен REST API grants.myrosmol.ru по инструкции в самом низу.
 ```
 
@@ -64,7 +64,7 @@ DATABASE_URL="url"
 
 token - это токен для rest api сайта grants.myrosmol.ru
 
-url - это "connection string" базы данных postgres
+url - это "connection url" базы данных postgres
 
 далее открываем папку prisma через консоль и выполняем `npx prisma db push`. Это зальёт схему в pg базу.
 
