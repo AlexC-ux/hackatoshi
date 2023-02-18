@@ -1,0 +1,15 @@
+.tour-prev-button {
+  width: 100%;
+  line-height: 18px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: rgb(229, 238, 255);
+  color: rgb(0, 52, 153);
+  display: inline-block;
+
+  &:hover {
+    background-color: rgb(0, 87, 255);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+  }
+}
