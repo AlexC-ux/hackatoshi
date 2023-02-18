@@ -55,6 +55,9 @@ token - это токен для rest api сайта grants.myrosmol.ru
 
 url - это "connection string" базы данных postgres
 
+далее открываем папку prisma через консоль и выполняем `npx prisma db push`. Это зальёт схему в pg базу.
+
+далее выполняем `npm run start`
 ---
 
 ### Инжектирование в сайт grants.myrosmol.ru
