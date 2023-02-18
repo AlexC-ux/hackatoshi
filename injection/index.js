@@ -85,7 +85,7 @@ function initSmartHelper() {
     if (tour) {
       if (element) {
         const offsets = getOffset(element);
-
+        tour.style.zIndex = "21474836";
         if (position == "left") {
           tour.style.top = `${offsets.topMiddle}px`;
           tour.style.left = `${offsets.leftEnd}px`;
