@@ -15,11 +15,9 @@ export const PageHintWidget: React.FC = () => {
       actions={
         <>
           <HintAction
-            id="action_1"
-            content="Хочу узнать о том какие мероприятия проводятся"
+            id="tour:1"
+            content="Тур по странице"
           />
-          <HintAction id="action_2" content="Хочу подать заявку на грант" />
-          <HintAction id="action_3" content="Хочу узнать статус моей заявки" />
         </>
       }
     />

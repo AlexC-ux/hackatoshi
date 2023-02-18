@@ -1,0 +1,86 @@
+.tour-hint {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  border-radius: 12px;
+  background: #fff;
+  padding: 15px;
+
+  box-shadow: rgb(35 47 53 / 20%) 0px 2px 8px 0px;
+
+  &-container {
+    &--bottom {
+      padding-bottom: 8px;
+    }
+
+    &--right {
+      padding-right: 8px;
+    }
+
+    &--top {
+      padding-top: 8px;
+    }
+
+    &--left {
+      padding-left: 8px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    &-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    &-close {
+    }
+  }
+
+  &__content {
+    font-size: 14px;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  &__arrow {
+    position: absolute;
+    background: #fff;
+    width: 9px;
+    height: 9px;
+    border-radius: 1px;
+    transform: rotate(45deg);
+    display: inline-block;
+
+    &--bottom {
+      bottom: -4px;
+      right: -4px;
+      left: 50%;
+    }
+
+    &--right {
+      bottom: -4px;
+      right: -4px;
+      top: 50%;
+    }
+
+    &--top {
+      inset: -4px -4px -4px 50%;
+    }
+
+    &--left {
+      inset: 50% -4px -4px -4px;
+    }
+  }
+}

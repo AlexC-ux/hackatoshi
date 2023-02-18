@@ -6,5 +6,20 @@ export type HintActionProps = {
 };
 
 export const HintAction: React.FC<HintActionProps> = ({ id, content }) => {
-  return <button className={styles["hint-action"]}>{content}</button>;
+  const onClick = () => {
+    if (window) {
+      const idSplited = id.split(":");
+      if (idSplited[0] === "tour")
+        window.parent.postMessage(
+          { type: "tour:start", value: idSplited[1] },
+          "*"
+        );
+    }
+  };
+
+  return (
+    <button className={styles["hint-action"]} onClick={onClick}>
+      {content}
+    </button>
+  );
 };
