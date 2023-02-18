@@ -68,6 +68,8 @@ url - это "connection url" базы данных postgres
 
 далее открываем папку prisma через консоль и выполняем `npx prisma db push`. Это зальёт схему в pg базу.
 
+Из папки prisma возвращаемся в папку api
+
 далее выполняем `npm run start`
 
 ---
