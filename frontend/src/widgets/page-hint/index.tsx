@@ -14,7 +14,7 @@ export const PageHintWidget: React.FC = () => {
       actions={
         <>
           <HintAction
-            id="tour:1"
+            id="tour:main"
             content="Тур по странице"
           />
         </>

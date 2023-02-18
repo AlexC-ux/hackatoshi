@@ -61,7 +61,14 @@ function initSmartHelper() {
       if (data && tour) {
         if (data.type == "tour:height") {
           tour.style.maxHeight = `${data.value}px`;
-        } else if (data.type == "tour:start") {
+        }
+        else if (data.type == "tour:main") {
+          window.parent.postMessage(
+            { type: "tour:start", value: document.location.pathname.replaceAll("/", ">") },
+            "*"
+          );
+        }
+        else if (data.type == "tour:start") {
           f.style.display = "none";
           f.style.top = "";
           f.style.left = "";
@@ -114,24 +121,27 @@ function initSmartHelper() {
   smarthelper.initPageHintFrame();
   smarthelper.initTourFrame();
 
+  /*
   function addHrefHandlers() {
     setInterval(() => {
       let Elements = parent.document.getElementsByTagName("a");
       for (let index = 0; index < Elements.length; index++) {
         const el = Elements[index];
         el.onclick = (ev) => {
-          if (!el.toString().endsWith("/events") && el.toString().includes("/events/") && el.toString().includes("request")) {
-            window.parent.postMessage(
-              { type: "tour:start", value: "2" },
-              "*"
-            );
-          }
+          window.parent.postMessage(
+            { type: "tour:start", value: el.pathname.replaceAll("/", ">") },
+            "*"
+          );
+          window.parent.postMessage(
+            { type: "tour:height", value: "160" },
+            "*"
+          );
         }
       }
-    }, 1000)
+    }, 500)
   }
 
-  addHrefHandlers();
+  addHrefHandlers();*/
 
 
 }
