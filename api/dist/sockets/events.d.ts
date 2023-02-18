@@ -4,7 +4,10 @@ export declare enum Events {
     getGrants = "getGrants",
     getGrantInfo = "getGrantInfo",
     getKnowledge = "getKnowledge",
-    sendMail = "sendMail"
+    sendMail = "sendMail",
+    locationChanged = "locationChanged"
 }
 export declare enum Emits {
+    lowActive = "lowActive",
+    grantPage = "grantPage"
 }

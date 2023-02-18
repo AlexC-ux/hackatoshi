@@ -23,6 +23,16 @@ const prisma = new client_1.PrismaClient();
 const nodemailer = require("nodemailer");
 let SocketsGateway = class SocketsGateway {
     handleConnection(client) {
+        setTimeout(() => {
+            client.emit(events_1.Emits.lowActive.toString(), "У нас подготовлено много интересных грантовых проектов! Желаете ознакомиться?");
+        }, 10000);
+        client.on(events_1.Events.locationChanged.toString(), (location) => {
+            setTimeout(() => {
+                if (location.contains("grants.myrosmol.ru/events")) {
+                    client.emit(events_1.Emits.grantPage.toString(), "Интересный проект, не так ли? Давайте я помогу Вам с заполнением заявки на участие!");
+                }
+            }, 6000);
+        });
         client.on(events_1.Events.askText.toString(), (text, ack) => {
             if (ack) {
                 ack(nlp_1.NaturalLangPr.getResult(text));

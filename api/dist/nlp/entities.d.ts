@@ -14,6 +14,12 @@ declare const _default: {
             text: string;
             url: string;
         }[];
+    } | {
+        type: string;
+        text: string;
+        keywords: string[];
+        answer: string;
+        links: {};
     })[];
     scenes: {
         uid_1: {

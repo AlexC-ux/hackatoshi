@@ -6,7 +6,7 @@ const authenticated_socket_adapter_1 = require("./sockets/authenticated-socket.a
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useWebSocketAdapter(new authenticated_socket_adapter_1.AuthenticatedSocketAdapter(app));
-    await app.listen(3000);
+    await app.listen(4000);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
