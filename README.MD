@@ -83,7 +83,8 @@ url - это "connection string" базы данных postgres
 ---
 
 ## Решение ошибок
-В случае вознекновения ошибок обращаться сюда: https://t.me/+st6xhfvtcxUwYjli
+Решение основных проблем описаны здесь https://github.com/AlexC-ux/hackatoshi/issues
+В случае вознекновения других ошибок обращаться сюда: https://t.me/+st6xhfvtcxUwYjli
 
 
 # Получение токена REST API grants.myrosmol.ru
