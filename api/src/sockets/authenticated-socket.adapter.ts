@@ -10,7 +10,14 @@ export class AuthenticatedSocketAdapter extends IoAdapter {
   }
 
   createIOServer(port: number, options?: any) {
-    const server: Server = super.createIOServer(port, options);
+    const server: Server = super.createIOServer(port, {
+      cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
+      }
+    });
 
     server.use(async (socket: any, next) => {
 

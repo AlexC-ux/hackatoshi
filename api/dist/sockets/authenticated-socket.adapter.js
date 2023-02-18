@@ -8,7 +8,14 @@ class AuthenticatedSocketAdapter extends platform_socket_io_1.IoAdapter {
         this.app = app;
     }
     createIOServer(port, options) {
-        const server = super.createIOServer(port, options);
+        const server = super.createIOServer(port, {
+            cors: {
+                origin: "http://localhost:3000",
+                methods: ["GET", "POST"],
+                allowedHeaders: ["my-custom-header"],
+                credentials: true
+            }
+        });
         server.use(async (socket, next) => {
             try {
                 socket.user = {};

@@ -372,12 +372,12 @@ export const TOURS: Record<string, TourStep[]> = {
     },{
       title: "Опыт руководителя",
       content: "В данном поле необходимо указать информацию, которая поможет экспертам конкурса убедиться в том, то руководитель проекта обладает достаточными знаниями, опытом и компетенциями для качественной реализации проекта.",
-      selector: '#\\33 c0d9566-d7d8-4ed3-9ae8-e0b8e87e7c8b-143',
+      selector: '#\\33 c0d9566-d7d8-4ed3-9ae8-e0b8e87e7c8b-329',
       arrow: "bottom",
     },{
       title: "Роль руководителя",
       content: "Расскажите какие обязанности выполняет руководитель, кроме управленческих, для достижения целей проекта.",
-      selector: '#\\30 e0813ae-65ae-455b-9fc7-da9b8bf12048 > div.base-field__entry.base-field__entry--error',
+      selector: '#\\30 e0813ae-65ae-455b-9fc7-da9b8bf12048-334',
       arrow: "bottom",
     },{
       title: "Адрес",
@@ -387,12 +387,12 @@ export const TOURS: Record<string, TourStep[]> = {
     },{
       title: "Резюме руководителя",
       content: "Рекомендуем прикреплять в формате PDF. Ограничение 50 мегабайт.",
-      selector: '#\\34 74bbcc3-db2f-4015-aa41-c4b8a971691f > div.base-upload > div.base-upload__row > div.base-upload__area.base-file > label',
+      selector: '#file344',
       arrow: "left",
     },{
       title: "Видеовизитка",
       content: "Подробнее можно найти здесь: https://ibb.co/HVZYC3J",
-      selector: '#\\39 c53bcbb-9854-4ee7-a0af-fc275fe41509-162',
+      selector: '#\\39 c53bcbb-9854-4ee7-a0af-fc275fe41509-348',
       arrow: "bottom",
     },{
       title: "Сохранение черновика",

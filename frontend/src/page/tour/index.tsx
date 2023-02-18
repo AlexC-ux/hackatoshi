@@ -14,7 +14,7 @@ export const TourPage = () => {
   useEffect(() => {
     if (window && tourId) {
       console.log({ type: "tour:height", value: height });
-      window.parent.postMessage({ type: "tour:height", value: height+70 }, "*");
+      window.parent.postMessage({ type: "tour:height", value: height }, "*");
     }
   }, [height, tourId]);
 

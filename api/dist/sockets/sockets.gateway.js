@@ -35,6 +35,7 @@ let SocketsGateway = class SocketsGateway {
         });
         client.on(events_1.Events.askText.toString(), (text, ack) => {
             if (ack) {
+                console.log({ queried: text });
                 ack(nlp_1.NaturalLangPr.getResult(text));
                 async function main() {
                     await prisma.users.update({

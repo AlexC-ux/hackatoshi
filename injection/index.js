@@ -33,6 +33,7 @@ function initSmartHelper() {
     f.setAttribute("src", "http://localhost:3000/");
     f.setAttribute("id", "smarthelper-hint");
     f.setAttribute("class", "smarthelper-hint");
+    f.setAttribute("allow", "camera;microphone");
     b.appendChild(f);
 
     smarthelper.rootWindow.addEventListener("message", ({ data }) => {
@@ -52,6 +53,7 @@ function initSmartHelper() {
     f.setAttribute("src", "");
     f.setAttribute("id", "smarthelper-tour");
     f.setAttribute("class", "smarthelper-tour");
+    f.setAttribute("allow", "camera;microphone");
     f.style.display = "none";
     b.appendChild(f);
 

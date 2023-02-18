@@ -42,6 +42,7 @@ export class SocketsGateway
     //Ответ на вопрос
     client.on(Events.askText.toString(), (text, ack) => {
       if (ack) {
+        console.log({queried:text})
         ack(NaturalLangPr.getResult(text));
 
         async function main() {
