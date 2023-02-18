@@ -113,6 +113,27 @@ function initSmartHelper() {
   smarthelper.initStyles();
   smarthelper.initPageHintFrame();
   smarthelper.initTourFrame();
+
+  function addHrefHandlers() {
+    setInterval(() => {
+      let Elements = parent.document.getElementsByTagName("a");
+      for (let index = 0; index < Elements.length; index++) {
+        const el = Elements[index];
+        el.onclick = (ev) => {
+          if (!el.toString().endsWith("/events") && el.toString().includes("/events/") && el.toString().includes("request")) {
+            window.parent.postMessage(
+              { type: "tour:start", value: "2" },
+              "*"
+            );
+          }
+        }
+      }
+    }, 1000)
+  }
+
+  addHrefHandlers();
+
+
 }
 
 !(function () {
