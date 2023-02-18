@@ -23,6 +23,30 @@ export const TOURS: Record<string, TourStep[]> = {
       arrow: "top",
     },
     {
+      title: "Эта кнопка прзволяет приближать карту",
+      content: "а рядом есть кнопка для отдаления",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > div > section > article > div > div.regions-map_controls_PjKlD > div.regions-map_buttons_5NlGJ > button > span > div > svg',
+      arrow: "right",
+    },
+    {
+      title: "Здесь есть ответы",
+      content: "на частозадаваемые вопросы",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > header > nav > a:nth-child(2) > span',
+      arrow: "top",
+    },
+    {
+      title: "Инструкции в базе знаний",
+      content: "научат Вас пользоваться площадкой",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > header > nav > a:nth-child(3)',
+      arrow: "top",
+    },
+    {
+      title: "Страница Академии.Гранты",
+      content: "научит запускать масштабные проекты",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > header > nav > a:nth-child(4) > span',
+      arrow: "top",
+    },
+    {
       "title": "Мероприятия",
       "content": "Здесь находится информация о проводимых мероприятиях и грантах",
       "selector": "#app > div.app-layout_wrapper_35RWz > div > main > aside > div > nav > a:nth-child(1)",
@@ -160,9 +184,15 @@ export const TOURS: Record<string, TourStep[]> = {
   ">projects": [
     {
       title: "Здесь полезные фильтры",
-      content: "Можно сортировать",
+      content: "Можно выбрать только нужное",
       selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > div > header > div.app-tabs_row_1BFHF.app-tabs_filters_3dT5G > div.app-tabs_filtersRow_2OjxF > div:nth-child(2)',
       arrow: "top",
+    },
+    {
+      title: "Кнопка создания проекта",
+      content: "Можно создать свой проект",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > div > header > div:nth-child(1) > div > div > button > span > div > svg',
+      arrow: "right",
     },
     {
       title: "Здесь редактирование",
@@ -282,6 +312,98 @@ export const TOURS: Record<string, TourStep[]> = {
       content: "Шми кнопку!)",
       selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > footer > div > button',
       arrow: "bottom",
+    }
+  ],
+  ">projects>create>386d79e1-1fa9-4e9d-9357-f8777644bcde:1c49a8d0-35c1-43c3-894e-ed03087dceaa":[
+    {
+      title: "Укажите название Вашего проекта",
+      content: "Название проекта должно содержать в себе как описательную часть, так и творческую, креативную.",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > section:nth-child(1) > div.base-input.base-field.base-field--animated.base-field--grid.base-field--grid-12',
+      arrow: "top",
+    },
+    {
+      title: "Выбор региона",
+      content: "необходимо указать субъект Российской Федерации, в котором будет происходить реализация проекта.",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > section:nth-child(1) > div.base-select.base-field.base-field--animated.base-field--grid.base-field--grid-12 > div > div > div.multiselect__tags',
+      arrow: "top",
+    },
+    {
+      title: "Здесь указаны требования к фотографии",
+      content: "Вам важно их соблюдать",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > section.base-row.base-row--nowrap > div.project-edit-form_description_1LOZm > p',
+      arrow: "left",
+    },
+    {
+      title: "Добавление фото",
+      content: "можно загрузить логотип проекта в формате pdf, png, jpg, doc не содержащий нежелательный, вредоносный контент (это необязательное поле).",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > section.base-row.base-row--nowrap > div.base-dropzone > div > label',
+      arrow: "left",
+    },{
+      title: "Эта информация заполняется автоматически",
+      content: "Если что-то заполнено не верно, то Вам нужно отредактировать свой профиль по ссылке: https://myrosmol.ru/profile",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > section:nth-child(3) > div:nth-child(2)',
+      arrow: "bottom",
+    },{
+      title: "Уровень реализации проекта",
+      content: "Про уровни реализации можно прочитать по ссылке: https://ibb.co/9YPm8P0",
+      selector: '#\\36 5acfb4c-0e17-47d4-88a0-d834b58d300b > div > div > div.multiselect__tags',
+      arrow: "bottom",
+    },{
+      title: "Информация про срок реализации",
+      content: "Реализация проекта предполагает, не только организацию, подготовку и проведение ключевого мероприятия, но и подведение итогов, работу по развитию проекта.",
+      selector: '#ef939504-7f6b-4895-b020-9261cbdb6f53 > div > div > div',
+      arrow: "right",
+    },{
+      title: "Дата начала",
+      content: "Начало реализации проекта не может быть ранее даты подписания Приказа об утверждении списка победителей конкурса (50 календарных дней со дня окончания приема заявок).",
+      selector: '#ef939504-7f6b-4895-b020-9261cbdb6f53 > div > div > div > input',
+      arrow: "top",
+    },{
+      title: "Дата окончания",
+      content: "Окончание реализации проекта наступает в тот момент, когда планируется полное подведение итогов и направление отчетных документов",
+      selector: '#ef939504-7f6b-4895-b020-9261cbdb6f53 > div > div > div > input',
+      arrow: "top",
+    },
+    {
+      title: "Про срок",
+      content: "Проект не может длиться более 1 календарного года с момента подписания Приказа об утверждении списка победителей конкурса",
+      selector: '#ef939504-7f6b-4895-b020-9261cbdb6f53 > div > div > div > input',
+      arrow: "top",
+    },{
+      title: "Опыт руководителя",
+      content: "В данном поле необходимо указать информацию, которая поможет экспертам конкурса убедиться в том, то руководитель проекта обладает достаточными знаниями, опытом и компетенциями для качественной реализации проекта.",
+      selector: '#\\33 c0d9566-d7d8-4ed3-9ae8-e0b8e87e7c8b-143',
+      arrow: "bottom",
+    },{
+      title: "Роль руководителя",
+      content: "Расскажите какие обязанности выполняет руководитель, кроме управленческих, для достижения целей проекта.",
+      selector: '#\\30 e0813ae-65ae-455b-9fc7-da9b8bf12048 > div.base-field__entry.base-field__entry--error',
+      arrow: "bottom",
+    },{
+      title: "Адрес",
+      content: "Укажите адрес подробно, например: ул. Большая Лубянка, 12/1, Москва, Россия, 101000",
+      selector: '#fa748cf9-457c-4483-ac10-6b16c49a04d9',
+      arrow: "bottom",
+    },{
+      title: "Резюме руководителя",
+      content: "Рекомендуем прикреплять в формате PDF. Ограничение 50 мегабайт.",
+      selector: '#\\34 74bbcc3-db2f-4015-aa41-c4b8a971691f > div.base-upload > div.base-upload__row > div.base-upload__area.base-file > label',
+      arrow: "left",
+    },{
+      title: "Видеовизитка",
+      content: "Подробнее можно найти здесь: https://ibb.co/HVZYC3J",
+      selector: '#\\39 c53bcbb-9854-4ee7-a0af-fc275fe41509-162',
+      arrow: "bottom",
+    },{
+      title: "Сохранение черновика",
+      content: "Такая кнопка есть в каждой вкладке. Вы можете воспользоваться ей, если захотите продолжить заполнять позже",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > article > div > form > footer > div.project-edit-form_controls_2WmVt > button.base-button.base-button--alternate',
+      arrow: "bottom",
+    },{
+      title: "Следующий шаг",
+      content: "Заполнение информации о проекте",
+      selector: '#app > div.app-layout_wrapper_35RWz > div > main > section > section > aside > div > ul > li:nth-child(2) > a',
+      arrow: "left",
     }
   ]
 };
