@@ -27,7 +27,7 @@ export function SpeechToText(props: {
       });
     }
   };
-//...
+  
   const stopListening = () => {
     SpeechRecognition.stopListening();
   };
