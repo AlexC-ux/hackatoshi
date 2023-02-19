@@ -1,9 +1,14 @@
-import React from "react";
+import { ChatWidget } from "widgets/chat";
+import { chatModel } from "entities/chat";
 
 import styles from "./styles.module.scss";
 
 export const ChatPage: React.FC = () => {
-  return <main className={styles["chat-page"]}>
-    
-  </main>;
+  return (
+    <chatModel.provider.ChatProvider>
+      <main className={styles["chat-page"]}>
+        <ChatWidget />
+      </main>
+    </chatModel.provider.ChatProvider>
+  );
 };

@@ -1,4 +1,3 @@
-import React from "react";
 // import styles from "../../features/page-hint/hint-action/styles.module.scss";
 import { Hint, HintMessage, pageHintModel } from "entities/page-hint";
 import { HintAction } from "features/page-hint";

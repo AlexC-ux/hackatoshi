@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 import { PageHintWidget } from "widgets/page-hint";
 import useElementSize from "shared/hooks/use-element-size";

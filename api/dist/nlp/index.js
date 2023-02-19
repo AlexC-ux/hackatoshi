@@ -4,19 +4,19 @@ exports.NaturalLangPr = void 0;
 const entities_1 = require("./entities");
 const Az = require('az');
 console.log({ ents: entities_1.default });
-Az.Morph.init("src/nlp/dicts", (r) => { console.log(r); });
+Az.Morph.init('src/nlp/dicts', (r) => {
+    console.log(r);
+});
 class NaturalLangPr {
-    constructor() {
-    }
     static getResult(input) {
-        let result = [];
-        let arr = input.replace(/[^а-яА-Я ]/gm, "").split(" ");
-        let morphems = [];
-        for (let index in arr) {
+        const result = [];
+        const arr = input.replace(/[^а-яА-Я ]/gm, '').split(' ');
+        const morphems = [];
+        for (const index in arr) {
             const word = arr[index];
-            let morph = Az.Morph(word);
+            const morph = Az.Morph(word);
             if (Object.keys(morph).length > 0) {
-                let normalized = morph[0].normalize(true).word;
+                const normalized = morph[0].normalize(true).word;
                 morphems.push(normalized);
             }
         }
@@ -38,7 +38,9 @@ class NaturalLangPr {
                 result.push(Object.assign(Object.assign({}, entities_1.default.entities[entId]), { score: count }));
             }
         }
-        result.sort(function (a, b) { return b.score - a.score; });
+        result.sort(function (a, b) {
+            return b.score - a.score;
+        });
         return result;
     }
 }

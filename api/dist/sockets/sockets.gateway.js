@@ -37,42 +37,18 @@ let SocketsGateway = class SocketsGateway {
             if (ack) {
                 console.log({ queried: text });
                 ack(nlp_1.NaturalLangPr.getResult(text));
-                async function main() {
-                    await prisma.users.update({
-                        where: {
-                            token: process.env.api_token,
-                        },
-                        data: {
-                            textQueries: {
-                                create: {
-                                    queryText: text,
-                                },
-                            },
-                        },
-                    });
-                }
-                main()
-                    .then(async () => {
-                    await prisma.$disconnect();
-                })
-                    .catch(async (e) => {
-                    console.error(e);
-                    await prisma.$disconnect();
-                    process.exit(1);
-                });
             }
         });
         client.on(events_1.Events.getMe.toString(), (text, ack) => {
-            var config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://grants.myrosmol.ru/api/profile/personal',
-                headers: {
-                    Authorization: `Bearer ${process.env.api_token}`,
-                },
-            };
             if (ack) {
-                (0, axios_1.default)(config)
+                (0, axios_1.default)({
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'https://grants.myrosmol.ru/api/profile/personal',
+                    headers: {
+                        Authorization: `Bearer ${process.env.api_token}`,
+                    },
+                })
                     .then(function (response) {
                     ack(JSON.stringify(response.data));
                 })
@@ -83,15 +59,14 @@ let SocketsGateway = class SocketsGateway {
         });
         client.on(events_1.Events.getGrants.toString(), (text, ack) => {
             if (ack) {
-                var config = {
+                (0, axios_1.default)({
                     method: 'get',
                     maxBodyLength: Infinity,
                     url: 'https://grants.myrosmol.ru/api/events',
                     headers: {
                         Authorization: `Bearer ${process.env.api_token}`,
                     },
-                };
-                (0, axios_1.default)(config)
+                })
                     .then(function (response) {
                     ack(JSON.stringify(response.data));
                 })
@@ -103,16 +78,14 @@ let SocketsGateway = class SocketsGateway {
         client.on(events_1.Events.getGrantInfo.toString(), (grantInfo, ack) => {
             if (grantInfo.id) {
                 if (ack) {
-                    var axios = require('axios');
-                    var config = {
+                    (0, axios_1.default)({
                         method: 'get',
                         maxBodyLength: Infinity,
                         url: 'https://grants.myrosmol.ru/api/events/' + grantInfo.id,
                         headers: {
                             Authorization: `Bearer ${process.env.api_token}`,
                         },
-                    };
-                    axios(config)
+                    })
                         .then(function (response) {
                         ack(JSON.stringify(response.data));
                     })
@@ -126,16 +99,15 @@ let SocketsGateway = class SocketsGateway {
             }
         });
         client.on(events_1.Events.getKnowledge.toString(), (text, ack) => {
-            var config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://grants.myrosmol.ru/api/knowledge',
-                headers: {
-                    Authorization: `Bearer ${process.env.api_token}`,
-                },
-            };
             if (ack) {
-                (0, axios_1.default)(config)
+                (0, axios_1.default)({
+                    method: 'get',
+                    maxBodyLength: Infinity,
+                    url: 'https://grants.myrosmol.ru/api/knowledge',
+                    headers: {
+                        Authorization: `Bearer ${process.env.api_token}`,
+                    },
+                })
                     .then(function (response) {
                     ack(JSON.stringify(response.data));
                 })
@@ -160,8 +132,8 @@ let SocketsGateway = class SocketsGateway {
                 ack('Not text or subject');
             }
             async function main() {
-                let testAccount = await nodemailer.createTestAccount();
-                let transporter = nodemailer.createTransport({
+                const testAccount = await nodemailer.createTestAccount();
+                const transporter = nodemailer.createTransport({
                     host: 'smtp.ethereal.email',
                     port: 587,
                     secure: false,
@@ -177,7 +149,7 @@ let SocketsGateway = class SocketsGateway {
                     },
                 })
                     .then(async (user) => {
-                    let info = await transporter.sendMail({
+                    const info = await transporter.sendMail({
                         from: '"ХАКАТОШИ ^.^" <foo@example.com>',
                         to: user.email,
                         subject: text.subject,
