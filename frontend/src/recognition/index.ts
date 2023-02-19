@@ -53,16 +53,7 @@ export function SpeechToText(props: {
   useEffect(() => {
     if (speechRecognitionSupported) {
       (<any>navigator).permissions
-        .query(
-          // { name: 'camera' }
-          { name: "microphone" }
-          // { name: 'geolocation' }
-          // { name: 'notifications' }
-          // { name: 'midi', sysex: false }
-          // { name: 'midi', sysex: true }
-          // { name: 'push', userVisibleOnly: true }
-          // { name: 'push' } // without userVisibleOnly isn't supported in chrome M45, yet
-        )
+        .query({ name: "microphone" })
         .then(function (permissionStatus: any) {
           if (permissionStatus.state != "prompt") {
             setMicroPermissionAllowed(permissionStatus.state == "granted");
