@@ -2,7 +2,7 @@ import { TourHint, TourHintArrow, tourModel } from "entities/tour";
 import { TourCloseButton, TourNextButton, TourPrevButton } from "features/tour";
 
 export const TourHintWidget = () => {
-  const { tourStep } = tourModel.provider.useTour();
+  const { tourStep, hasNext, hasPrev } = tourModel.provider.useTour();
 
   if (!tourStep) return null;
 
@@ -12,10 +12,12 @@ export const TourHintWidget = () => {
       content={tourStep.content}
       closeButton={<TourCloseButton />}
       actions={
-        <>
-          <TourPrevButton />
-          <TourNextButton />
-        </>
+        (hasNext || hasPrev) && (
+          <>
+            <TourPrevButton />
+            <TourNextButton />
+          </>
+        )
       }
       arrow={tourStep.arrow as TourHintArrow}
     />

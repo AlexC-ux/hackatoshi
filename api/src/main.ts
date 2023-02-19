@@ -4,7 +4,7 @@ import { AuthenticatedSocketAdapter } from './sockets/authenticated-socket.adapt
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useWebSocketAdapter(new AuthenticatedSocketAdapter(app)); // Add our custom socket adapter.
+  app.useWebSocketAdapter(new AuthenticatedSocketAdapter(app));
   await app.listen(4000);
 }
 bootstrap();

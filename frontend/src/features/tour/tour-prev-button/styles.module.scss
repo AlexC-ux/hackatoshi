@@ -12,4 +12,8 @@
     color: rgb(255, 255, 255);
     cursor: pointer;
   }
+
+  &--hidden {
+    opacity: 0;
+  }
 }

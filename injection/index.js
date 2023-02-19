@@ -16,13 +16,14 @@ function initSmartHelper() {
   window.smarthelper = {};
   smarthelper.rootWindow = window;
   smarthelper.rootDocument = smarthelper.rootWindow.document;
+  smarthelper.iframes = {};
 
   smarthelper.initStyles = () => {
     var h = smarthelper.rootDocument.getElementsByTagName("head")[0];
     var s = smarthelper.rootDocument.createElement("style");
     s.innerHTML = `
-    .smarthelper-hint{position: fixed;bottom: 10px;right: 10px;border: none;max-width: 400px;max-height: 0px; height: 100%; width: 100%;}
-    .smarthelper-tour{position: absolute;top: 10px;left: 10px;border: none;max-width: 300px;max-height: 0px; height: 100%; width: 100%;	transition: top 0.5s ease-out, left 0.5s ease-out, transform 0.5s ease-out;}
+    .smarthelper-hint{position: fixed;bottom: 10px;right: 10px;border: none;max-width: 400px;max-height: 0px; height: 100%; width: 100%;z-index: 1000000;}
+    .smarthelper-tour{position: absolute;top: 10px;left: 10px;border: none;max-width: 300px;max-height: 0px; height: 100%; width: 100%;	transition: top 0.5s ease-out, left 0.5s ease-out, transform 0.5s ease-out;z-index: 1000001;}
     `;
     h.appendChild(s);
   };
@@ -34,11 +35,19 @@ function initSmartHelper() {
     f.setAttribute("id", "smarthelper-hint");
     f.setAttribute("class", "smarthelper-hint");
     f.setAttribute("allow", "camera;microphone");
+    f.addEventListener("load", () => {
+      smarthelper.iframes.hint.contentWindow.postMessage(
+        { type: "location:changed", location: document.location.href },
+        "*"
+      );
+    });
     b.appendChild(f);
 
+    smarthelper.iframes.hint =
+      smarthelper.rootDocument.getElementById("smarthelper-hint");
+
     smarthelper.rootWindow.addEventListener("message", ({ data }) => {
-      console.log(data);
-      const tour = smarthelper.rootDocument.getElementById("smarthelper-hint");
+      const tour = smarthelper.iframes.hint;
       if (data && tour) {
         if (data.type == "hint:height") {
           tour.style.maxHeight = `${data.value}px`;
@@ -54,34 +63,30 @@ function initSmartHelper() {
     f.setAttribute("id", "smarthelper-tour");
     f.setAttribute("class", "smarthelper-tour");
     f.setAttribute("allow", "camera;microphone");
+    f.setAttribute("scrolling", "no");
     f.style.display = "none";
     b.appendChild(f);
 
+    smarthelper.iframes.tour =
+      smarthelper.rootDocument.getElementById("smarthelper-tour");
+
     smarthelper.rootWindow.addEventListener("message", ({ data }) => {
-      console.log(data);
-      const tour = smarthelper.rootDocument.getElementById("smarthelper-tour");
+      const tour = smarthelper.iframes.tour;
       if (data && tour) {
         if (data.type == "tour:height") {
           tour.style.maxHeight = `${data.value}px`;
-        }
-        else if (data.type == "tour:main") {
-          window.parent.postMessage(
-            { type: "tour:start", value: document.location.pathname.replaceAll("/", ">") },
-            "*"
-          );
-        }
-        else if (data.type == "tour:start") {
-          f.style.display = "none";
-          f.style.top = "";
-          f.style.left = "";
-          f.style.transform = "";
-          f.setAttribute("src", `http://localhost:3000/tour/${data.value}`);
+        } else if (data.type == "tour:start") {
+          tour.style.display = "none";
+          tour.style.top = "";
+          tour.style.left = "";
+          tour.style.transform = "";
+          tour.contentWindow.location.replace(`http://localhost:3000/tour/${data.value}`);
         } else if (data.type == "tour:step") {
-          f.style.display = "";
+          tour.style.display = "";
           smarthelper.attachTourToElement(data.selector, data.position);
         } else if (data.type == "tour:end") {
-          f.style.display = "none";
-          f.setAttribute("src", "");
+          tour.style.display = "none";
+          tour.contentWindow.location.replace(``);
         }
       }
     });
@@ -89,7 +94,7 @@ function initSmartHelper() {
 
   smarthelper.attachTourToElement = (selector, position) => {
     const element = smarthelper.rootDocument.querySelector(selector);
-    const tour = smarthelper.rootDocument.getElementById("smarthelper-tour");
+    const tour = smarthelper.iframes.tour;
 
     if (tour) {
       if (element) {
@@ -113,16 +118,41 @@ function initSmartHelper() {
           tour.style.transform = `translate3d(-50%, -100%, 0px)`;
         }
         tour.style.display = "";
+
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "center",
+        });
       } else {
         tour.style.display = "none";
       }
     }
   };
 
+  smarthelper.initLocationChangeHandler = () => {
+    let oldHref = document.location.href;
+    new MutationObserver(() => {
+      if (oldHref !== document.location.href) {
+        oldHref = document.location.href;
+
+        smarthelper.iframes.hint.contentWindow.postMessage(
+          { type: "location:changed", location: document.location.href },
+          "*"
+        );
+
+        smarthelper.rootWindow.postMessage({ type: "tour:end" });
+      }
+    }).observe(document.querySelector("body"), {
+      childList: true,
+      subtree: true,
+    });
+  };
+
   smarthelper.initStyles();
   smarthelper.initPageHintFrame();
   smarthelper.initTourFrame();
-
+  smarthelper.initLocationChangeHandler();
 }
 
 !(function () {

@@ -8,13 +8,12 @@ import styles from "./styles.module.scss";
 import { tourModel } from "entities/tour";
 
 export const TourPage = () => {
-  const [ref, { height }] = useElementSize();
+  const [ref, { height }] = useElementSize<HTMLElement>();
   const { tourId } = useParams();
 
   useEffect(() => {
     if (window && tourId) {
-      console.log({ type: "tour:height", value: height });
-      window.parent.postMessage({ type: "tour:height", value: height }, "*");
+      window.parent.postMessage({ type: "tour:height", value: height + 16 }, "*");
     }
   }, [height, tourId]);
 

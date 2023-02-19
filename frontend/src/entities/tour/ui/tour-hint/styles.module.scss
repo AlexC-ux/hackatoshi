@@ -55,6 +55,8 @@
   }
 
   &__arrow {
+    border: 1px solid #003499;
+    z-index: -1;
     position: absolute;
     background: #fff;
     width: 9px;

@@ -20,16 +20,16 @@ const socket_io_1 = require("socket.io");
 const events_1 = require("./events");
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 let SocketsGateway = class SocketsGateway {
     handleConnection(client) {
         setTimeout(() => {
-            client.emit(events_1.Emits.lowActive.toString(), "У нас подготовлено много интересных грантовых проектов! Желаете ознакомиться?");
+            client.emit(events_1.Emits.lowActive.toString(), 'У нас подготовлено много интересных грантовых проектов! Желаете ознакомиться?');
         }, 10000);
         client.on(events_1.Events.locationChanged.toString(), (location) => {
             setTimeout(() => {
-                if (location.contains("grants.myrosmol.ru/events")) {
-                    client.emit(events_1.Emits.grantPage.toString(), "Интересный проект, не так ли? Давайте я помогу Вам с заполнением заявки на участие!");
+                if (location.contains('grants.myrosmol.ru/events')) {
+                    client.emit(events_1.Emits.grantPage.toString(), 'Интересный проект, не так ли? Давайте я помогу Вам с заполнением заявки на участие!');
                 }
             }, 6000);
         });
@@ -40,15 +40,15 @@ let SocketsGateway = class SocketsGateway {
                 async function main() {
                     await prisma.users.update({
                         where: {
-                            token: process.env.api_token
+                            token: process.env.api_token,
                         },
                         data: {
                             textQueries: {
                                 create: {
-                                    queryText: text
-                                }
-                            }
-                        }
+                                    queryText: text,
+                                },
+                            },
+                        },
                     });
                 }
                 main()
@@ -68,8 +68,8 @@ let SocketsGateway = class SocketsGateway {
                 maxBodyLength: Infinity,
                 url: 'https://grants.myrosmol.ru/api/profile/personal',
                 headers: {
-                    'Authorization': `Bearer ${process.env.api_token}`
-                }
+                    Authorization: `Bearer ${process.env.api_token}`,
+                },
             };
             if (ack) {
                 (0, axios_1.default)(config)
@@ -88,8 +88,8 @@ let SocketsGateway = class SocketsGateway {
                     maxBodyLength: Infinity,
                     url: 'https://grants.myrosmol.ru/api/events',
                     headers: {
-                        'Authorization': `Bearer ${process.env.api_token}`
-                    }
+                        Authorization: `Bearer ${process.env.api_token}`,
+                    },
                 };
                 (0, axios_1.default)(config)
                     .then(function (response) {
@@ -109,8 +109,8 @@ let SocketsGateway = class SocketsGateway {
                         maxBodyLength: Infinity,
                         url: 'https://grants.myrosmol.ru/api/events/' + grantInfo.id,
                         headers: {
-                            'Authorization': `Bearer ${process.env.api_token}`
-                        }
+                            Authorization: `Bearer ${process.env.api_token}`,
+                        },
                     };
                     axios(config)
                         .then(function (response) {
@@ -122,7 +122,7 @@ let SocketsGateway = class SocketsGateway {
                 }
             }
             else {
-                ack("Не указан id");
+                ack('Не указан id');
             }
         });
         client.on(events_1.Events.getKnowledge.toString(), (text, ack) => {
@@ -131,8 +131,8 @@ let SocketsGateway = class SocketsGateway {
                 maxBodyLength: Infinity,
                 url: 'https://grants.myrosmol.ru/api/knowledge',
                 headers: {
-                    'Authorization': `Bearer ${process.env.api_token}`
-                }
+                    Authorization: `Bearer ${process.env.api_token}`,
+                },
             };
             if (ack) {
                 (0, axios_1.default)(config)
@@ -157,12 +157,12 @@ let SocketsGateway = class SocketsGateway {
                 });
             }
             else {
-                ack("Not text or subject");
+                ack('Not text or subject');
             }
             async function main() {
                 let testAccount = await nodemailer.createTestAccount();
                 let transporter = nodemailer.createTransport({
-                    host: "smtp.ethereal.email",
+                    host: 'smtp.ethereal.email',
                     port: 587,
                     secure: false,
                     auth: {
@@ -170,11 +170,13 @@ let SocketsGateway = class SocketsGateway {
                         pass: testAccount.pass,
                     },
                 });
-                prisma.users.findFirstOrThrow({
+                prisma.users
+                    .findFirstOrThrow({
                     where: {
-                        token: process.env.api_token
-                    }
-                }).then(async (user) => {
+                        token: process.env.api_token,
+                    },
+                })
+                    .then(async (user) => {
                     let info = await transporter.sendMail({
                         from: '"ХАКАТОШИ ^.^" <foo@example.com>',
                         to: user.email,

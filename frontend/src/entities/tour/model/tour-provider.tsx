@@ -5,6 +5,8 @@ export type TourContextType = {
   tour: TourStep[];
   tourStep: TourStep | null;
   step: number;
+  hasNext: boolean;
+  hasPrev: boolean;
   nextStep: () => void;
   prevStep: () => void;
   closeTour: () => void;
@@ -63,9 +65,21 @@ export const TourProvider: React.FC<TourProviderProps> = ({
 
   const tourStep = tour[step] ?? null;
 
+  const hasNext = step < tour.length - 1;
+  const hasPrev = step > 0;
+
   return (
     <TourContext.Provider
-      value={{ tour, tourStep, step, nextStep, prevStep, closeTour }}
+      value={{
+        tour,
+        tourStep,
+        step,
+        nextStep,
+        prevStep,
+        closeTour,
+        hasNext,
+        hasPrev,
+      }}
     >
       {children}
     </TourContext.Provider>
