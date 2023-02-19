@@ -49,6 +49,10 @@ function initSmartHelper() {
           if (smarthelper.iframes.hint.style.display !== "none") {
             smarthelper.iframes.hint.style.display = "none";
             smarthelper.iframes.chat.style.display = "";
+          } else if (smarthelper.iframes.chat.style.display !== "none") {
+            
+            smarthelper.iframes.hint.style.display = "none";
+            smarthelper.iframes.chat.style.display = "none";
           } else {
             smarthelper.iframes.hint.style.display = "";
             smarthelper.iframes.chat.style.display = "none";
