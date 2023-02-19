@@ -11,7 +11,7 @@ export const SendMessage = () => {
       className={styles["send-message"]}
       src={sendIcon}
       alt="Отправить сообщение"
-      onClick={sendMessage}
+      onClick={() => sendMessage()}
     />
   );
 };

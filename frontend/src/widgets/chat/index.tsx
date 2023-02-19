@@ -1,5 +1,5 @@
 import { Message, MessageInput, chatModel } from "entities/chat";
-import { SendMessage } from "features/chat";
+import { SendMessage, SendVoiceMessage } from "features/chat";
 
 import styles from "./styles.module.scss";
 import { useEffect, useRef } from "react";
@@ -28,7 +28,14 @@ export const ChatWidget = () => {
         </div>
       </div>
       <div className={styles["chat-input"]}>
-        <MessageInput actions={<SendMessage />} />
+        <MessageInput
+          actions={
+            <>
+              <SendVoiceMessage />
+              <SendMessage />
+            </>
+          }
+        />
       </div>
     </div>
   );
